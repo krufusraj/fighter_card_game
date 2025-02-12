@@ -21,7 +21,7 @@ public class CardService {
     }
 
     @PostConstruct
-    private void seedRepositories(){
+    private void seedRepositories() throws Exception {
         fighterListScrapper.seedDatabase();
     }
 
