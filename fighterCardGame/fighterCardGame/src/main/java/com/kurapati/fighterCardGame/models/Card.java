@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
+@Table(name = "cards")
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,7 @@ public class Card {
     private String height;
     private String age;
     private String nextFight;
+    private int overall = 60;
 
     private Card() {
     }
@@ -33,6 +35,16 @@ public class Card {
         this.height = height;
         this.age = age;
         this.nextFight = nextFight;
+    }
+
+    public int getOverall() {
+        return overall;
+    }
+
+
+
+    public void setOverall(int overall) {
+        this.overall = overall;
     }
 
     public int getId() {
@@ -117,6 +129,19 @@ public class Card {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Card card = (Card) o;
+        return id == card.id && overall == card.overall && Objects.equals(name, card.name) && Objects.equals(weightClass, card.weightClass) && Objects.equals(tier, card.tier) && Objects.equals(country, card.country) && Objects.equals(nickname, card.nickname) && Objects.equals(record, card.record) && Objects.equals(height, card.height) && Objects.equals(age, card.age) && Objects.equals(nextFight, card.nextFight);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, weightClass, tier, country, nickname, record, height, age, nextFight, overall);
+    }
+
+    @Override
     public String toString() {
         return "Card{" +
                 "id=" + id +
@@ -129,20 +154,8 @@ public class Card {
                 ", height='" + height + '\'' +
                 ", age='" + age + '\'' +
                 ", nextFight='" + nextFight + '\'' +
+                ", overall=" + overall +
                 '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Card card = (Card) o;
-        return Objects.equals(id, card.id) && Objects.equals(name, card.name) && Objects.equals(weightClass, card.weightClass) && Objects.equals(tier, card.tier) && Objects.equals(country, card.country) && Objects.equals(nickname, card.nickname) && Objects.equals(record, card.record) && Objects.equals(height, card.height) && Objects.equals(age, card.age) && Objects.equals(nextFight, card.nextFight);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, weightClass, tier, country, nickname, record, height, age, nextFight);
     }
 
 
