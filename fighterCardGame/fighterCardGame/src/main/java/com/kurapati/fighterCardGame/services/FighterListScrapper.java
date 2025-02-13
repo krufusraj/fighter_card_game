@@ -31,7 +31,7 @@ public class FighterListScrapper {
             // fetching the target website
             doc = Jsoup.connect("https://en.wikipedia.org/wiki/List_of_current_UFC_fighters").get();
             List<Map<String, String>> fighterList = updateFighterList(doc);
-            System.out.println(fighterList);
+            //System.out.println(fighterList);
             for(Map<String,String> fighter:fighterList){
                 cardRepository.save(
                         new Card(
@@ -164,7 +164,7 @@ public class FighterListScrapper {
             //System.out.println(fighter);
             fighters.add(fighter);
         }
-        System.out.println(fighters);
+        //System.out.println(fighters);
         return fighters;
 
     }

@@ -1,6 +1,6 @@
 package com.kurapati.fighterCardGame.controllers;
 
-import com.kurapati.fighterCardGame.models.User;
+import com.kurapati.fighterCardGame.models.Users;
 import com.kurapati.fighterCardGame.services.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +14,7 @@ public class UserController {
     }
 
     @PostMapping("/user")
-    public void addUser(@RequestBody User user){
-        userService.createUser(user);
+    public void addUser(@RequestBody Users users){
+        userService.createUser(users);
     }
 }

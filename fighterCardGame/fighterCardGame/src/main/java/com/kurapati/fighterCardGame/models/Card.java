@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
 public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
