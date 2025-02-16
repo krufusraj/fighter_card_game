@@ -1,10 +1,8 @@
-package com.kurapati.fighterCardGame.services;
+package com.kurapati.fighterCardGame.pack;
 
-import com.kurapati.fighterCardGame.models.Card;
-import com.kurapati.fighterCardGame.models.Pack;
-import com.kurapati.fighterCardGame.models.Users;
-import com.kurapati.fighterCardGame.repositories.CardRepository;
-import com.kurapati.fighterCardGame.repositories.PackRepository;
+import com.kurapati.fighterCardGame.card.Card;
+import com.kurapati.fighterCardGame.users.Users;
+import com.kurapati.fighterCardGame.card.CardRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +25,6 @@ public class PackService {
         currentUser.setUserCards(pack);
         System.out.println(currentUser);
         return pack;
-
     }
 
 }

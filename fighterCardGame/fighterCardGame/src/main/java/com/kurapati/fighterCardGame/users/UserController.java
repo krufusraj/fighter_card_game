@@ -1,9 +1,7 @@
-package com.kurapati.fighterCardGame.controllers;
+package com.kurapati.fighterCardGame.users;
 
-import com.kurapati.fighterCardGame.models.Card;
-import com.kurapati.fighterCardGame.models.Users;
-import com.kurapati.fighterCardGame.services.PackService;
-import com.kurapati.fighterCardGame.services.UserService;
+import com.kurapati.fighterCardGame.card.Card;
+import com.kurapati.fighterCardGame.pack.PackService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

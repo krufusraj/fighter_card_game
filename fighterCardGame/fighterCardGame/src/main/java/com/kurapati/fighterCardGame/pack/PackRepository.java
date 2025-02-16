@@ -1,9 +1,6 @@
-package com.kurapati.fighterCardGame.repositories;
+package com.kurapati.fighterCardGame.pack;
 
-import com.kurapati.fighterCardGame.models.Fighter;
-import com.kurapati.fighterCardGame.models.Pack;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,5 +1,6 @@
-package com.kurapati.fighterCardGame.models;
+package com.kurapati.fighterCardGame.users;
 
+import com.kurapati.fighterCardGame.card.Card;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,10 +12,14 @@ public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int userId;
 
-    @OneToMany(cascade = CascadeType.MERGE)
-//    @JoinColumn
+    @ManyToMany(cascade = { CascadeType.ALL })
+    @JoinTable(
+            name = "User Card",
+            joinColumns = { @JoinColumn(name = "cardId") },
+            inverseJoinColumns = { @JoinColumn(name = "userId") }
+    )
     List<Card> userCards = new ArrayList<Card>();
 
     private String username;
@@ -31,6 +36,18 @@ public class Users {
     }
 
     private Users() {
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public String getUsername() {
+        return username;
     }
 
     public String getRole() {
@@ -83,7 +100,7 @@ public class Users {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "id=" + userId +
                 ", userCards=" + userCards +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
@@ -98,11 +115,11 @@ public class Users {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Users users = (Users) o;
-        return id == users.id && Objects.equals(userCards, users.userCards) && Objects.equals(username, users.username) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(money, users.money) && Objects.equals(role, users.role);
+        return userId == users.userId && Objects.equals(userCards, users.userCards) && Objects.equals(username, users.username) && Objects.equals(email, users.email) && Objects.equals(password, users.password) && Objects.equals(money, users.money) && Objects.equals(role, users.role);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userCards, username, email, password, money, role);
+        return Objects.hash(userId, userCards, username, email, password, money, role);
     }
 }

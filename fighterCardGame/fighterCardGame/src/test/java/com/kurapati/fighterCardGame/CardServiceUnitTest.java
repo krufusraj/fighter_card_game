@@ -1,7 +1,7 @@
 package com.kurapati.fighterCardGame;
 
-import com.kurapati.fighterCardGame.models.Fighter;
-import com.kurapati.fighterCardGame.services.CardService;
+import com.kurapati.fighterCardGame.fighter.Fighter;
+import com.kurapati.fighterCardGame.card.CardService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
