@@ -7,6 +7,7 @@ import com.kurapati.fighterCardGame.users.Users;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AuctionHouseCardService {
@@ -38,18 +39,42 @@ public class AuctionHouseCardService {
 
     }
 
-    public void buyAuctionHouseCard(int sellerId, int buyerId, int cardId, int sellingPrice){
+    public void buyAuctionHouseCard(int auctionCardId,int sellerId, int buyerId, int cardId, int sellingPrice){
         //remove card from seller
         Users seller = userRepository.findById(sellerId).orElseThrow(
                 ()->new RuntimeException("user does not exist")
         );
-        List<Card> cards = seller.getUserCards();
-        //cards.remove()
+        seller.setUserCards( seller.getUserCards().stream()
+                .filter(card -> card.getCardId()!=cardId)
+                .collect(Collectors.toList())
+        );
         //add money to buyer
-        //add card to buyer
-        //remove money form buyer
-        //remove card from auctionHouse
+        seller.setMoney(seller.getMoney()+sellingPrice);
 
+        //add card to buyer
+        Users buyer = userRepository.findById(buyerId).orElseThrow(
+                ()->new RuntimeException("user does not exist")
+        );
+        Card card = cardRepo.findById(cardId).orElseThrow(
+                ()->new RuntimeException("user does not exist")
+        );
+
+        List<Card> cards =buyer.getUserCards();
+        cards.add(card);
+        buyer.setUserCards(cards);
+        //remove money form buyer
+        buyer.setMoney(buyer.getMoney()-sellingPrice);
+        //remove card from auctionHouse
+        auctionHouseCardRepo.deleteById(auctionCardId);
+    }
+
+    public void placeBid(int bidderId, int auctionCardId,int bidAmount){
+        AuctionHouseCard auctionHouseCard = auctionHouseCardRepo.findById(auctionCardId).orElseThrow();
+        auctionHouseCard.setMaxBidder(userRepository.findById(bidderId).orElseThrow());
+        auctionHouseCard.setStartingAuction(bidAmount);
+
+        Users bidder = userRepository.findById(bidderId).orElseThrow();
+        bidder.setMoney(bidder.getMoney()-bidAmount);
     }
 
     public void updateAuctionHouseCard(){

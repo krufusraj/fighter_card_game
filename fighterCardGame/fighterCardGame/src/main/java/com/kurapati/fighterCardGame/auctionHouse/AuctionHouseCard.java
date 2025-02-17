@@ -3,7 +3,6 @@ package com.kurapati.fighterCardGame.auctionHouse;
 import com.kurapati.fighterCardGame.card.Card;
 import com.kurapati.fighterCardGame.users.Users;
 import jakarta.persistence.*;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.util.Date;
 import java.util.Objects;
@@ -12,7 +11,7 @@ import java.util.Objects;
 public class AuctionHouseCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int auctionHouseCardId;
 
     @Column(name = "posted_time")
     @Temporal(TemporalType.TIMESTAMP)
@@ -28,6 +27,9 @@ public class AuctionHouseCard{
     @OneToOne
     private Users seller;
 
+    @OneToOne
+    private Users maxBidder = seller;
+
     private AuctionHouseCard() {
     }
 
@@ -39,16 +41,24 @@ public class AuctionHouseCard{
         this.duration = duration;
     }
 
-    public int getId() {
-        return id;
+    public int getAuctionHouseCardId() {
+        return auctionHouseCardId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setAuctionHouseCardId(int auctionHouseCardId) {
+        this.auctionHouseCardId = auctionHouseCardId;
     }
 
     public Date getPostedTime() {
         return postedTime;
+    }
+
+    public Users getMaxBidder() {
+        return maxBidder;
+    }
+
+    public void setMaxBidder(Users maxBidder) {
+        this.maxBidder = maxBidder;
     }
 
     public void setPostedTime(Date postedTime) {
@@ -100,13 +110,13 @@ public class AuctionHouseCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuctionHouseCard that = (AuctionHouseCard) o;
-        return id == that.id && buyNowPrice == that.buyNowPrice && startingAuction == that.startingAuction && duration == that.duration && Objects.equals(card, that.card);
+        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && startingAuction == that.startingAuction && duration == that.duration && Objects.equals(card, that.card);
     }
 
     @Override
     public String toString() {
         return "AuctionHouseCard{" +
-                "id=" + id +
+                "id=" + auctionHouseCardId +
                 ", card=" + card +
                 ", buyNowPrice=" + buyNowPrice +
                 ", startingAuction=" + startingAuction +
@@ -116,7 +126,7 @@ public class AuctionHouseCard{
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, card, buyNowPrice, startingAuction, duration);
+        return Objects.hash(auctionHouseCardId, card, buyNowPrice, startingAuction, duration);
     }
 
 }
