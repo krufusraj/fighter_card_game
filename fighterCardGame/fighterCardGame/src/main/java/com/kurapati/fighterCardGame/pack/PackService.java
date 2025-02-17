@@ -4,10 +4,12 @@ import com.kurapati.fighterCardGame.card.Card;
 import com.kurapati.fighterCardGame.users.Users;
 import com.kurapati.fighterCardGame.card.CardRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class PackService {
 
     private final CardRepository cardRepo;

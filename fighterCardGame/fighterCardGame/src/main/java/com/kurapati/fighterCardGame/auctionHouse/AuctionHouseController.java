@@ -33,4 +33,27 @@ public class AuctionHouseController {
             return auctionHouseCardService.getAuctionCards();
         }
 
+    @PostMapping("/auction/bid")
+    public List<AuctionHouseCard> bidOnCard(@RequestBody BidAuctionDTO bidAuctionDTO){
+        System.out.println(bidAuctionDTO.toString());
+        auctionHouseCardService.placeBid(
+                bidAuctionDTO.getBidderId(),
+                bidAuctionDTO.getAuctionCardId(),
+                bidAuctionDTO.getBidAmount()
+        );
+        return auctionHouseCardService.getAuctionCards();
+    }
+
+    @PostMapping("/auction/buy")
+    public List<AuctionHouseCard> buyCard(@RequestBody BuyAuctionDTO buyAuctionDTO){
+        auctionHouseCardService.buyAuctionHouseCard(
+                buyAuctionDTO.getAuctionCardId(),
+                buyAuctionDTO.getSellerId(),
+                buyAuctionDTO.getBuyerId(),
+                buyAuctionDTO.getCardId(),
+                buyAuctionDTO.getSellingPrice()
+        );
+        return auctionHouseCardService.getAuctionCards();
+    }
+
 }
