@@ -18,27 +18,28 @@ public class AuctionHouseCard{
     private Date postedTime = new Date();
 
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "card_id")
     private Card card;
+
     private int buyNowPrice;
-    private int startingAuction;
+    private int bidAmount;
     private int duration;
 
-    @OneToOne
+    @ManyToOne
     private Users seller;
 
-    @OneToOne
-    private Users maxBidder = seller;
+    @ManyToOne
+    private Users maxBidder;
 
     private AuctionHouseCard() {
     }
 
-    public AuctionHouseCard(Users seller,Card card, int buyNowPrice, int startingAuction,int duration) {
+    public AuctionHouseCard(Users seller, Card card, int buyNowPrice, int bidAmount, int duration) {
         this.seller = seller;
         this.card = card;
         this.buyNowPrice = buyNowPrice;
-        this.startingAuction = startingAuction;
+        this.bidAmount = bidAmount;
         this.duration = duration;
+        this.maxBidder = seller;
     }
 
     public int getAuctionHouseCardId() {
@@ -89,12 +90,12 @@ public class AuctionHouseCard{
         this.buyNowPrice = buyNowPrice;
     }
 
-    public int getStartingAuction() {
-        return startingAuction;
+    public int getBidAmount() {
+        return bidAmount;
     }
 
-    public void setStartingAuction(int startingAuction) {
-        this.startingAuction = startingAuction;
+    public void setBidAmount(int bidAmount) {
+        this.bidAmount = bidAmount;
     }
 
     public int getDuration() {
@@ -110,7 +111,7 @@ public class AuctionHouseCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuctionHouseCard that = (AuctionHouseCard) o;
-        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && startingAuction == that.startingAuction && duration == that.duration && Objects.equals(card, that.card);
+        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && bidAmount == that.bidAmount && duration == that.duration && Objects.equals(card, that.card);
     }
 
     @Override
@@ -119,14 +120,14 @@ public class AuctionHouseCard{
                 "id=" + auctionHouseCardId +
                 ", card=" + card +
                 ", buyNowPrice=" + buyNowPrice +
-                ", startingAuction=" + startingAuction +
+                ", startingAuction=" + bidAmount +
                 ", duration=" + duration +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(auctionHouseCardId, card, buyNowPrice, startingAuction, duration);
+        return Objects.hash(auctionHouseCardId, card, buyNowPrice, bidAmount, duration);
     }
 
 }

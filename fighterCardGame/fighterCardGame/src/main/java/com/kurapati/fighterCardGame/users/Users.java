@@ -2,12 +2,14 @@ package com.kurapati.fighterCardGame.users;
 
 import com.kurapati.fighterCardGame.card.Card;
 import jakarta.persistence.*;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+
 public class Users {
 
     @Id
@@ -17,15 +19,15 @@ public class Users {
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(
             name = "User Card",
-            joinColumns = { @JoinColumn(name = "cardId") },
-            inverseJoinColumns = { @JoinColumn(name = "userId") }
+            joinColumns = { @JoinColumn(name = "userId") },
+            inverseJoinColumns = { @JoinColumn(name = "cardId") }
     )
     List<Card> userCards = new ArrayList<Card>();
 
     private String username;
     private String email;
     private String password;
-    private Long money = 0L;
+    private Long money = 10000L;
     private String role;
 
     public Users(String username, String email, String password, String role) {
@@ -62,6 +64,7 @@ public class Users {
         return userCards;
     }
 
+    @Transactional
     public void setUserCards(List<Card> userCards) {
         this.userCards = userCards;
     }

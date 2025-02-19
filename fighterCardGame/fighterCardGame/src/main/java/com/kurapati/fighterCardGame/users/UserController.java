@@ -21,6 +21,7 @@ public class UserController {
     @PostMapping("/user")
     public List<Card> addUser(@RequestBody Users user){
         List<Card> pack = packService.generatePack("Starter",user);
+        user.setUserCards(pack);
         userService.createUser(user);
         System.out.println(pack);
         return pack;
