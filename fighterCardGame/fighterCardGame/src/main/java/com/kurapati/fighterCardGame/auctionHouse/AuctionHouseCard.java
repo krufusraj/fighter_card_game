@@ -17,6 +17,10 @@ public class AuctionHouseCard{
     @Temporal(TemporalType.TIMESTAMP)
     private Date postedTime = new Date();
 
+    @Column(name = "expiration_time")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date expirationTime = new Date();
+
     @ManyToOne(cascade = CascadeType.MERGE)
     private Card card;
 
@@ -40,6 +44,15 @@ public class AuctionHouseCard{
         this.bidAmount = bidAmount;
         this.duration = duration;
         this.maxBidder = seller;
+        this.expirationTime = new Date(postedTime.getTime()+duration);
+    }
+
+    public Date getExpirationTime() {
+        return expirationTime;
+    }
+
+    public void setExpirationTime(Date expirationTime) {
+        this.expirationTime = expirationTime;
     }
 
     public int getAuctionHouseCardId() {
@@ -111,23 +124,27 @@ public class AuctionHouseCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuctionHouseCard that = (AuctionHouseCard) o;
-        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && bidAmount == that.bidAmount && duration == that.duration && Objects.equals(card, that.card);
+        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && bidAmount == that.bidAmount && duration == that.duration && Objects.equals(postedTime, that.postedTime) && Objects.equals(expirationTime, that.expirationTime) && Objects.equals(card, that.card) && Objects.equals(seller, that.seller) && Objects.equals(maxBidder, that.maxBidder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(auctionHouseCardId, postedTime, expirationTime, card, buyNowPrice, bidAmount, duration, seller, maxBidder);
     }
 
     @Override
     public String toString() {
         return "AuctionHouseCard{" +
-                "id=" + auctionHouseCardId +
+                "auctionHouseCardId=" + auctionHouseCardId +
+                ", postedTime=" + postedTime +
+                ", expirationTime=" + expirationTime +
                 ", card=" + card +
                 ", buyNowPrice=" + buyNowPrice +
-                ", startingAuction=" + bidAmount +
+                ", bidAmount=" + bidAmount +
                 ", duration=" + duration +
+                ", seller=" + seller +
+                ", maxBidder=" + maxBidder +
                 '}';
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(auctionHouseCardId, card, buyNowPrice, bidAmount, duration);
     }
 
 }
