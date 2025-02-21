@@ -11,6 +11,7 @@ import java.util.Objects;
 public class AuctionHouseCard{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "auction_house_card_id")
     private int auctionHouseCardId;
 
     @Column(name = "posted_time")

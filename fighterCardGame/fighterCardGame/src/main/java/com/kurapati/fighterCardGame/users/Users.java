@@ -69,6 +69,11 @@ public class Users {
         this.userCards = userCards;
     }
 
+    @Transactional
+    public void addToCards(Card card){
+        this.userCards.add(card);
+    }
+
 
     public void setUsername(String username) {
         this.username = username;
