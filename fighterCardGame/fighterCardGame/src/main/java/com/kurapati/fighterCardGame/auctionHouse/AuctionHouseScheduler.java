@@ -2,6 +2,7 @@ package com.kurapati.fighterCardGame.auctionHouse;
 
 import com.kurapati.fighterCardGame.card.Card;
 import com.kurapati.fighterCardGame.card.CardRepository;
+import com.kurapati.fighterCardGame.users.UserRepository;
 import com.kurapati.fighterCardGame.users.Users;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -15,9 +16,11 @@ import java.util.List;
 @Component
 public class AuctionHouseScheduler {
     private final AuctionHouseCardRepository auctionHouseCardRepository;
+    private final UserRepository userRepository;
 
-    public AuctionHouseScheduler(AuctionHouseCardRepository auctionHouseCardRepository, CardRepository cardRepository) {
+    public AuctionHouseScheduler(AuctionHouseCardRepository auctionHouseCardRepository, CardRepository cardRepository, UserRepository userRepository) {
         this.auctionHouseCardRepository = auctionHouseCardRepository;
+        this.userRepository = userRepository;
     }
 
     @Scheduled(fixedRate = 1000L, initialDelay = 20000L)
@@ -25,7 +28,7 @@ public class AuctionHouseScheduler {
         List<AuctionHouseCard> expiredCards = auctionHouseCardRepository.getExpiredCards();
         for(AuctionHouseCard auctionCard:expiredCards) {
             Card card = auctionCard.getCard();
-            Users seller = auctionCard.getSeller();
+            Users seller = userRepository.findById(auctionCard.getSellerId()).orElseThrow();
             seller.addToCards(card);
             auctionHouseCardRepository.deleteById(auctionCard.getAuctionHouseCardId());
 

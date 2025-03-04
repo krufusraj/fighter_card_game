@@ -1,3 +1,0 @@
-INSERT INTO users (user_id,money,email,password,role,username) VALUES (1,10000,'rafs@email.com','password','ADMIN','Rafs')
-INSERT INTO auction_house_card (auction_house_card_id,bid_amount, buy_now_price,card_card_id, duration, max_bidder_id,seller_id,posted_time) VALUES (1,1000,5000,1,6000,1,1,CURRENT_TIMESTAMP)
-INSERT INTO auction_house_card (auction_house_card_id,bid_amount, buy_now_price,card_card_id, duration, max_bidder_id,seller_id,posted_time) VALUES (1,1000,5000,2,6000,1,1,CURRENT_TIMESTAMP)
