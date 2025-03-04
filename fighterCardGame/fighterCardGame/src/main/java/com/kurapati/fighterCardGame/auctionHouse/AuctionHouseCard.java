@@ -29,22 +29,26 @@ public class AuctionHouseCard{
     private int bidAmount;
     private int duration;
 
-    @ManyToOne
-    private Users seller;
+//    @ManyToOne
+//    private Users seller;
 
-    @ManyToOne
-    private Users maxBidder;
+    private int sellerId;
+
+    private int maxBidderId;
+
+//    @ManyToOne
+//    private Users maxBidder;
 
     private AuctionHouseCard() {
     }
 
-    public AuctionHouseCard(Users seller, Card card, int buyNowPrice, int bidAmount, int duration) {
-        this.seller = seller;
+    public AuctionHouseCard(int sellerId, Card card, int buyNowPrice, int bidAmount, int duration) {
+        this.sellerId = sellerId;
+        this.maxBidderId = sellerId;
         this.card = card;
         this.buyNowPrice = buyNowPrice;
         this.bidAmount = bidAmount;
         this.duration = duration;
-        this.maxBidder = seller;
         this.expirationTime = new Date(postedTime.getTime()+duration);
     }
 
@@ -68,25 +72,41 @@ public class AuctionHouseCard{
         return postedTime;
     }
 
-    public Users getMaxBidder() {
-        return maxBidder;
-    }
-
-    public void setMaxBidder(Users maxBidder) {
-        this.maxBidder = maxBidder;
-    }
+//    public Users getMaxBidder() {
+//        return maxBidder;
+//    }
+//
+//    public void setMaxBidder(Users maxBidder) {
+//        this.maxBidder = maxBidder;
+//    }
 
     public void setPostedTime(Date postedTime) {
         this.postedTime = postedTime;
     }
 
-    public Users getSeller() {
-        return seller;
+    public int getSellerId() {
+        return sellerId;
     }
 
-    public void setSeller(Users seller) {
-        this.seller = seller;
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
     }
+
+    public int getMaxBidderId() {
+        return maxBidderId;
+    }
+
+    public void setMaxBidderId(int maxBidderId) {
+        this.maxBidderId = maxBidderId;
+    }
+
+    //    public Users getSeller() {
+//        return seller;
+//    }
+//
+//    public void setSeller(Users seller) {
+//        this.seller = seller;
+//    }
 
     public Card getCard() {
         return card;
@@ -125,12 +145,12 @@ public class AuctionHouseCard{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AuctionHouseCard that = (AuctionHouseCard) o;
-        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && bidAmount == that.bidAmount && duration == that.duration && Objects.equals(postedTime, that.postedTime) && Objects.equals(expirationTime, that.expirationTime) && Objects.equals(card, that.card) && Objects.equals(seller, that.seller) && Objects.equals(maxBidder, that.maxBidder);
+        return auctionHouseCardId == that.auctionHouseCardId && buyNowPrice == that.buyNowPrice && bidAmount == that.bidAmount && duration == that.duration && Objects.equals(postedTime, that.postedTime) && Objects.equals(expirationTime, that.expirationTime) && Objects.equals(card, that.card) && Objects.equals(sellerId, that.sellerId) && Objects.equals(maxBidderId, that.maxBidderId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(auctionHouseCardId, postedTime, expirationTime, card, buyNowPrice, bidAmount, duration, seller, maxBidder);
+        return Objects.hash(auctionHouseCardId, postedTime, expirationTime, card, buyNowPrice, bidAmount, duration, sellerId, maxBidderId);
     }
 
     @Override
@@ -143,8 +163,8 @@ public class AuctionHouseCard{
                 ", buyNowPrice=" + buyNowPrice +
                 ", bidAmount=" + bidAmount +
                 ", duration=" + duration +
-                ", seller=" + seller +
-                ", maxBidder=" + maxBidder +
+                ", seller=" + sellerId +
+                ", maxBidder=" + maxBidderId +
                 '}';
     }
 

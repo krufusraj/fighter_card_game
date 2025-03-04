@@ -4,6 +4,7 @@ import com.kurapati.fighterCardGame.card.Card;
 import com.kurapati.fighterCardGame.pack.PackService;
 import com.kurapati.fighterCardGame.users.UserService;
 import com.kurapati.fighterCardGame.users.Users;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -53,6 +54,11 @@ public class AuctionHouseController {
                 buyAuctionDTO.getCardId(),
                 buyAuctionDTO.getSellingPrice()
         );
+        return auctionHouseCardService.getAuctionCards();
+    }
+
+    @GetMapping("/auction")
+    public List<AuctionHouseCard> getAuctionHouseCards(){
         return auctionHouseCardService.getAuctionCards();
     }
 

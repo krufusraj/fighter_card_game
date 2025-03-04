@@ -31,6 +31,7 @@ public class FighterListScrapper {
             List<Map<String, String>> fighterList = updateFighterList(doc);
             //System.out.println(fighterList);
             for(Map<String,String> fighter:fighterList){
+                //System.out.println(fighter);
                 cardRepository.save(
                         new Card(
                                   fighter.get("Name"),
@@ -41,8 +42,11 @@ public class FighterListScrapper {
                                   fighter.get("Endeavor record"),
                                   fighter.get("Ht."),
                                   fighter.get("Age"),
-                                  fighter.get("Result / next fight / status")
+                                  fighter.get("Result / next fight / status").length() > 255
+                                    ? fighter.get("Result / next fight / status").substring(0, 255)
+                                    : fighter.get("Result / next fight / status")
                         )
+
                 );
                 fighterRepository.save(
                         new Fighter(
@@ -53,7 +57,9 @@ public class FighterListScrapper {
                                 fighter.get("Weight Class"),
                                 fighter.get("Ht."),
                                 fighter.get("Age"),
-                                fighter.get("Result / next fight / status")
+                                fighter.get("Result / next fight / status").length() > 255
+                                        ? fighter.get("Result / next fight / status").substring(0, 255)
+                                        : fighter.get("Result / next fight / status")
                         )
                 );
             }

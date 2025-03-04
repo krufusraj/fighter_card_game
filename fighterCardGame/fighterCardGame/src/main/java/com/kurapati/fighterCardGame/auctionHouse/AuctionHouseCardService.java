@@ -29,7 +29,7 @@ public class AuctionHouseCardService {
                 ()->new RuntimeException("user does not exist"));
         auctionHouseCardRepo.save(
                 new AuctionHouseCard(
-                        seller,
+                        sellerId,
                         cardRepo.findById(cardId).orElseThrow(
                                 ()->new RuntimeException("Card does not exist")
                         ),
@@ -84,7 +84,7 @@ public class AuctionHouseCardService {
         if(bidder.getMoney() >= bidAmount) {
             System.out.println(auctionCardId);
             AuctionHouseCard auctionHouseCard = auctionHouseCardRepo.findById(auctionCardId).orElseThrow();
-            auctionHouseCard.setMaxBidder(userRepository.findById(bidderId).orElseThrow());
+            auctionHouseCard.setMaxBidderId(bidderId);
             auctionHouseCard.setBidAmount(bidAmount);
 
 
